@@ -1,0 +1,31 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: eventhub-connector-73
+  namespace: "{{.Values.namespace}}"
+  labels:
+    app: eventhub-connector
+    environment: "{{.Values.environment}}"
+    connector-id: "73"
+data:
+  class: "io.confluent.connect.jdbc.JdbcSinkConnector"
+  tasksMax: "{{.Values.connector.tasksMax}}"
+  topics: "{{.Values.connector.topicPrefix}}.events.connector-73"
+  connection.url: "jdbc:postgresql://db-host:5432/eventhub_73"
+  auto.create: "true"
+  auto.evolve: "true"
+  insert.mode: "upsert"
+  pk.mode: "record_key"
+  pk.fields: "id"
+  key.converter: "io.confluent.connect.avro.AvroConverter"
+  key.converter.schema.registry.url: "{{.Values.kafka.schemaRegistryUrl}}"
+  value.converter: "io.confluent.connect.avro.AvroConverter"
+  value.converter.schema.registry.url: "{{.Values.kafka.schemaRegistryUrl}}"
+  errors.tolerance: "{{.Values.errors.tolerance}}"
+  errors.log.enable: "{{.Values.errors.log.enable}}"
+  errors.log.include.messages: "{{.Values.errors.log.include.messages}}"
+  bootstrap.servers: "{{.Values.kafka.bootstrapServers}}"
+  resources.limits.cpu: "{{.Values.resources.limits.cpu}}"
+  resources.limits.memory: "{{.Values.resources.limits.memory}}"
+  resources.requests.cpu: "{{.Values.resources.requests.cpu}}"
+  resources.requests.memory: "{{.Values.resources.requests.memory}}"

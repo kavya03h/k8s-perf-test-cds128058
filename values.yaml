@@ -1,0 +1,25 @@
+namespace: default
+environment: test
+replicaCount: 1
+image:
+  repository: confluentinc/cp-kafka-connect
+  tag: "7.5.1"
+kafka:
+  bootstrapServers: "kafka-broker-0:9092,kafka-broker-1:9092,kafka-broker-2:9092"
+  schemaRegistryUrl: "http://schema-registry:8081"
+connector:
+  tasksMax: 1
+  topicPrefix: "eventhub"
+errors:
+  tolerance: "all"
+  log:
+    enable: "true"
+    include:
+      messages: "true"
+resources:
+  limits:
+    cpu: "500m"
+    memory: "512Mi"
+  requests:
+    cpu: "250m"
+    memory: "256Mi"
